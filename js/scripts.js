@@ -17,8 +17,8 @@ for (let i = 0; i < pokemonList.length; i++) {
   let label = '';
   
   if (pokemon.height > .6) {
-    label = ' - WOW! That\'s a big pokemon!';
+    label = ' - Wow, that\'s big!';
   };
-  
+
   document.write(`${pokemon.name} (${pokemon.height}m) ${label}<br>`);
 };
