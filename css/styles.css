@@ -1,0 +1,13 @@
+.nameButtons {
+  background-color:lightgrey;
+  color: inherit;
+  border-radius: 24px;
+  border:none;
+  padding: 10px;
+  margin: 5px;
+}
+
+.pokemonList {
+  list-style: none;
+  margin-left:-30px;
+}
