@@ -27,6 +27,15 @@ let pokemonRepository = (function () {
     pokemonList.appendChild(listItem);
   }
 
+  function showLoadingMessage() {
+    let loadingMessage = document.getElementById('loadingMessage');
+    loadingMessage.style.display = 'block';
+  }
+  function hideLoadingMessage() {
+    let loadingMessage = document.getElementById('loadingMessage');
+    loadingMessage.style.display = 'none';
+  }
+
   function showDetails(pokemon) {
     loadDetails(pokemon).then(function () {
       console.log(pokemon);
@@ -34,8 +43,10 @@ let pokemonRepository = (function () {
   }
 
   function loadList() {
+    showLoadingMessage();
     return fetch(apiUrl)
       .then(function (response) {
+        hideLoadingMessage();
         return response.json();
       })
       .then(function (json) {
@@ -48,19 +59,23 @@ let pokemonRepository = (function () {
         });
       })
       .catch(function (e) {
+        hideLoadingMessage();
         console.error(e);
       });
   }
 
   function loadDetails(item) {
+    showLoadingMessage();
     let url = item.detailsUrl;
     return fetch(url).then(function(response) {
       return response.json();
     }).then(function (details) {
+      hideLoadingMessage()
       item.imageUrl = details.sprites.front_default;
       item.height = details.height;
       item.types = details.types;
     }).catch(function (e) {
+      hideLoadingMessage();
       console.error(e);
     });
   }
@@ -72,6 +87,8 @@ let pokemonRepository = (function () {
     showDetails: showDetails,
     loadList: loadList,
     loadDetails: loadDetails,
+    showLoadingMessage: showLoadingMessage,
+    hideLoadingMessage: hideLoadingMessage,
   };
 })();
 

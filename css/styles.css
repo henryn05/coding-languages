@@ -12,3 +12,7 @@
   list-style: none;
   margin-left:-30px;
 }
+
+#loadingMessage {
+  display: none;
+}
