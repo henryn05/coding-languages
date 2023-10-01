@@ -3,10 +3,10 @@ let pokemonRepository = (function () {
   let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=150";
 
   function add(pokemon) {
-    if (typeof pokemon === "object") {
+    if (typeof pokemon === 'object') {
       pokemonList.push(pokemon);
     } else {
-      console.error("Error: Invalid data type. Only objects allowed");
+      console.error('Error: Invalid data type. Only objects allowed');
     }
   }
 
@@ -15,30 +15,65 @@ let pokemonRepository = (function () {
   }
 
   function addListItem(pokemon) {
-    let pokemonList = document.querySelector(".pokemonList");
-    let listItem = document.createElement("li");
-    let button = document.createElement("button");
+    let pokemonList = document.querySelector('.pokemonList');
+    let listItem = document.createElement('li');
+    let button = document.createElement('button');
     button.innerText = pokemon.name;
-    button.classList.add("nameButtons");
-    button.addEventListener("click", function () {
+    button.classList.add('nameButtons');
+    button.addEventListener('click', function () {
       showDetails(pokemon);
     });
     listItem.appendChild(button);
     pokemonList.appendChild(listItem);
+    return button;
   }
 
   function showLoadingMessage() {
     let loadingMessage = document.getElementById('loadingMessage');
     loadingMessage.style.display = 'block';
   }
+
   function hideLoadingMessage() {
     let loadingMessage = document.getElementById('loadingMessage');
     loadingMessage.style.display = 'none';
   }
 
+  function loadDetails(item) {
+    showLoadingMessage();
+    let url = item.detailsUrl;
+    return fetch(url)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (details) {
+        hideLoadingMessage();
+        item.imageUrl = details.sprites.front_default;
+        item.height = details.height;
+        item.types = details.types;
+      })
+      .catch(function (e) {
+        hideLoadingMessage();
+        console.error(e);
+      });
+  }
+
   function showDetails(pokemon) {
-    loadDetails(pokemon).then(function () {
-      console.log(pokemon);
+    loadDetails(pokemon).then(function (details) {
+      let modal = document.querySelector(".modal");
+      let modalContainer = document.querySelector(".modalContainer");
+      let modalContent = modal.querySelector("p");
+      let overlay = document.querySelector(".overlay");
+
+      modalContent.textContent = `Name: ${details.name}, Height: ${details.height}`;
+      modalContent.innerHTML += `<img src="${details.imageUrl}" alt="${details.name}">`;
+
+      modalContainer.classList.add("is-visible");
+      overlay.classList.add("is-visible");
+
+      document.getElementById("closeModal").addEventListener("click", function () {
+        modalContainer.style.display = "none";
+        overlay.classList.remove("is-visible");
+      });
     });
   }
 
@@ -62,22 +97,6 @@ let pokemonRepository = (function () {
         hideLoadingMessage();
         console.error(e);
       });
-  }
-
-  function loadDetails(item) {
-    showLoadingMessage();
-    let url = item.detailsUrl;
-    return fetch(url).then(function(response) {
-      return response.json();
-    }).then(function (details) {
-      hideLoadingMessage()
-      item.imageUrl = details.sprites.front_default;
-      item.height = details.height;
-      item.types = details.types;
-    }).catch(function (e) {
-      hideLoadingMessage();
-      console.error(e);
-    });
   }
 
   return {
