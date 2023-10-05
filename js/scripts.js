@@ -101,9 +101,7 @@ let pokemonRepository = (function () {
     }
 
     // Remove any existing event listeners from the close button
-    document
-      .getElementById("closeModal")
-      .removeEventListener("click", closeModal);
+    document.getElementById("closeModal").removeEventListener("click", closeModal);
 
     // Add a new event listener to close the modal when the "Close" button is clicked
     document.getElementById("closeModal").addEventListener("click", closeModal);
@@ -118,6 +116,8 @@ let pokemonRepository = (function () {
     // Add event listener to close modal when clicked outside of modal
     overlay.addEventListener("click", closeModal);
 
+    modalContainer.classList.add('is-visible');
+  
     function closeModal() {
       modalContainer.classList.remove("is-visible");
       overlay.classList.remove("is-visible");
@@ -145,7 +145,6 @@ let pokemonRepository = (function () {
     document
       .getElementById("closeModal")
       .addEventListener("click", function () {
-        modalContainer.style.display = "none";
         overlay.classList.remove("is-visible");
       });
   }
