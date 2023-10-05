@@ -143,8 +143,8 @@ let pokemonRepository = (function () {
     overlay.classList.add("is-visible");
 
     document.getElementById("closeModal").addEventListener("click", function () {
-        overlay.classList.remove("is-visible");
-      });
+      overlay.classList.remove("is-visible");
+    });
   }
 
   function capitalizeFirstLetter(string) {
