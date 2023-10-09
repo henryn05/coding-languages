@@ -128,7 +128,9 @@ let pokemonRepository = (function () {
       modalContainer.classList.remove("is-visible");
       overlay.classList.remove("is-visible");
 
-      document.getElementById("closeModal").removeEventListener("click", closeModal);
+      document
+        .getElementById("closeModal")
+        .removeEventListener("click", closeModal);
       document.removeEventListener("keydown", closeModal);
       overlay.removeEventListener("click", closeModal);
     }
@@ -137,19 +139,66 @@ let pokemonRepository = (function () {
   function displayPokemonDetails(pokemon) {
     let modalTitle = document.querySelector(".modal-title");
     let modalBody = document.querySelector(".modal-body");
-    
+
     let types = pokemon.types.map(function (type) {
       return type.charAt(0).toUpperCase() + type.slice(1);
     });
 
     modalTitle.innerHTML = `<p>${pokemon.name}</p>`;
-    modalBody.innerHTML = `<p class="height">Height: ${pokemon.height}m</p><p class="type">Type: ${types.join(", ")}</p> <img src="${pokemon.imageUrl}" alt="${pokemon.name} class="image">`;
+    modalBody.innerHTML = `<p class="height">Height: ${
+      pokemon.height
+    }m</p><p class="type">Type: ${types.join(", ")}</p> <img src="${
+      pokemon.imageUrl
+    }" alt="${pokemon.name} class="image">`;
 
     $("#pokemonModal").modal("show");
   }
 
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  function setupSearch() {
+  let searchInput = document.getElementById("searchInput");
+  let pokemonList = document.querySelectorAll(".list-group-item");
+
+  searchInput.addEventListener("input", function () {
+    let searchQuery = searchInput.value.toLowerCase();
+
+    pokemonList.forEach(function (pokemonItem) {
+      let pokemonName = pokemonItem.innerText.toLowerCase();
+
+      if (pokemonName.includes(searchQuery)) {
+        pokemonItem.style.display = "block";
+        pokemonItem.scrollIntoView({ behavior: "smooth" }); // Scroll to found Pokémon
+      } else {
+        pokemonItem.style.display = "none";
+      }
+    });
+  });
+}
+
+  function setupFilter() {
+    const typeDropdown = document.getElementById("typeDropdown");
+    const typeItems = document.querySelectorAll(".dropdown-item");
+
+    typeItems.forEach((item) => {
+      item.addEventListener("click", function (event) {
+        event.preventDefault();
+        let selectedType = item.getAttribute("data-type");
+        updateFilter(selectedType);
+      });
+    });
+  }
+
+  function updateFilter() {
+    let selectedType = document
+      .getElementById("typeDropdown")
+      .value.toLowerCase();
+
+    let filteredPokemon = pokemonRepository.getAll().filter(function (pokemon) {
+      return pokemon.types && pokemon.types.includes(selectedType);
+    });
   }
 
   return {
@@ -161,6 +210,9 @@ let pokemonRepository = (function () {
     loadDetails: loadDetails,
     showLoadingMessage: showLoadingMessage,
     hideLoadingMessage: hideLoadingMessage,
+    setupSearch: setupSearch,
+    setupFilter: setupFilter,
+    updateFilter: updateFilter,
   };
 })();
 
@@ -168,4 +220,7 @@ pokemonRepository.loadList().then(function () {
   pokemonRepository.getAll().forEach(function (pokemon) {
     pokemonRepository.addListItem(pokemon);
   });
+  pokemonRepository.setupSearch();
+  pokemonRepository.setupFilter();
+  pokemonRepository.updateFilter();
 });

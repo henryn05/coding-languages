@@ -9,6 +9,47 @@
   </head>
   
   <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <img src="/img/pokemon-logo.png" alt="Pokedex Logo" width="200">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+              <!-- Filter for Types -->
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="typeDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Type</button>
+                <div class="dropdown-menu" aria-labelledby="typeDropdown">
+                  <a class="dropdown-item" href="#" data-type="normal">Normal</a>
+                  <a class="dropdown-item" href="#" data-type="fire">Fire</a>
+                  <a class="dropdown-item" href="#" data-type="water">Water</a>
+                  <a class="dropdown-item" href="#" data-type="electric">Electric</a>
+                  <a class="dropdown-item" href="#" data-type="grass">Grass</a>
+                  <a class="dropdown-item" href="#" data-type="ice">Ice</a>
+                  <a class="dropdown-item" href="#" data-type="fighting">Fighting</a>
+                  <a class="dropdown-item" href="#" data-type="poison">Poison</a>
+                  <a class="dropdown-item" href="#" data-type="ground">Ground</a>
+                  <a class="dropdown-item" href="#" data-type="flying">Flying</a>
+                  <a class="dropdown-item" href="#" data-type="psychic">Psychic</a>
+                  <a class="dropdown-item" href="#" data-type="bug">Bug</a>
+                  <a class="dropdown-item" href="#" data-type="rock">Rock</a>
+                  <a class="dropdown-item" href="#" data-type="ghost">Ghost</a>
+                  <a class="dropdown-item" href="#" data-type="dark">Dark</a>
+                  <a class="dropdown-item" href="#" data-type="steel">Steel</a>
+                  <a class="dropdown-item" href="#" data-type="dragon">Dragon</a>
+                  <a class="dropdown-item" href="#" data-type="fairy">Fairy</a>
+                </div>
+              </div>            
+              <li class="nav-item">
+                  <form class="form-inline">
+                      <input class="form-control mr-sm-2" type="search" id="searchInput" placeholder="Search Pokemon" aria-label="Search">
+                      <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+                  </form>
+              </li>
+          </ul>
+      </div>
+    </nav>
     <div id="loadingMessage">Loading...</div>
     <div class="modal fade" id="pokemonModal" tabindex="-1" role="dialog" aria-labelledby="pokemonModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -28,7 +69,7 @@
         </div>
       </div>
     </div>
-    <ul class="pokemonList list-group"></ul>
+    <ul class="pokemonList list-group row"></ul>
     <script src="js/promise-polyfill.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
