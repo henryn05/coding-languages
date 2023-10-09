@@ -3,6 +3,23 @@ html {
   box-sizing: border-box;
 }
 
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100px;
+}
+
+#typeDropdown, #searchInput {
+  margin: 0;
+  height: 40px;
+}
+
+.navbar img {
+  height: 90px;
+  vertical-align: middle;
+}
+
 .btn {
   background-color: rgba(60,90,166,1);
   color: white;
@@ -14,7 +31,11 @@ html {
 }
 
 .btn:hover {
-  background-color: rgba(60,90,166,1);
+  background-color: rgba(255,203,5,1);
+}
+
+.btn:active .btn:focus {
+  background-color: rgba(255,203,5,.5);
 }
 
 .pokemonList {
@@ -73,4 +94,28 @@ html {
 .modal-body p {
   flex-grow: 1;
   padding-right: 10px;
+}
+
+@media (max-width: 991px) {
+  .navbar-collapse {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 1000;
+    display: none; 
+    transition: all 0.3s ease;
+  }
+  
+  .navbar-toggler {
+    position: relative;
+  }
+
+  .navbar-toggler:focus + .navbar-collapse,
+  .navbar-collapse:hover {
+    display: block; 
+  }
+
+  .navbar-nav .form-inline {
+    margin-bottom: 10px;
+  }
 }

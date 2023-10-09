@@ -178,7 +178,7 @@ let pokemonRepository = (function () {
   }
 
   function setupFilter() {
-    let dropdown = document.getElementById(".dropdown");
+    let dropdown = document.querySelector(".dropdown");
     let dropdownItems = document.querySelectorAll(".dropdown-item");
 
     dropdownItems.forEach((item) => {
