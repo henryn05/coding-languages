@@ -159,30 +159,29 @@ let pokemonRepository = (function () {
   }
 
   function setupSearch() {
-  let searchInput = document.getElementById("searchInput");
-  let pokemonList = document.querySelectorAll(".list-group-item");
+    let searchInput = document.getElementById("searchInput");
+    let pokemonList = document.querySelectorAll(".list-group-item");
 
-  searchInput.addEventListener("input", function () {
-    let searchQuery = searchInput.value.toLowerCase();
+    searchInput.addEventListener("input", function () {
+      let searchQuery = searchInput.value.toLowerCase();
 
-    pokemonList.forEach(function (pokemonItem) {
-      let pokemonName = pokemonItem.innerText.toLowerCase();
+      pokemonList.forEach(function (pokemonItem) {
+        let pokemonName = pokemonItem.innerText.toLowerCase();
 
-      if (pokemonName.includes(searchQuery)) {
-        pokemonItem.style.display = "block";
-        pokemonItem.scrollIntoView({ behavior: "smooth" }); // Scroll to found Pokémon
-      } else {
-        pokemonItem.style.display = "none";
-      }
+        if (pokemonName.includes(searchQuery)) {
+          pokemonItem.style.display = "block";
+        } else {
+          pokemonItem.style.display = "none";
+        }
+      });
     });
-  });
-}
+  }
 
   function setupFilter() {
-    const typeDropdown = document.getElementById("typeDropdown");
-    const typeItems = document.querySelectorAll(".dropdown-item");
+    let dropdown = document.getElementById(".dropdown");
+    let dropdownItems = document.querySelectorAll(".dropdown-item");
 
-    typeItems.forEach((item) => {
+    dropdownItems.forEach((item) => {
       item.addEventListener("click", function (event) {
         event.preventDefault();
         let selectedType = item.getAttribute("data-type");
