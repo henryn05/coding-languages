@@ -69,48 +69,27 @@ let pokemonRepository = (function () {
   }
 
   // Function to load a list of Pokémon
-function loadList() {
-  showLoadingMessage();
-  return fetch(apiUrl)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (json) {
-      json.results.forEach(function (item) {
-        let pokemon = {
-          name: item.name.charAt(0).toUpperCase() + item.name.slice(1), // Capitalize the first letter
-          detailsUrl: item.url,
-          types: [] // Initialize an empty array to store types
-        };
-
-        // Fetch additional data for the Pokémon
-        return fetch(item.url)
-          .then(function (response) {
-            return response.json();
-          })
-          .then(function (details) {
-            // Append type data to the Pokémon object
-            pokemon.types = details.types.map(function (typeData) {
-              return typeData.type.name;
-            });
-
-            // Add the Pokémon to the list
-            add(pokemon);
-          })
-          .catch(function (e) {
-            hideLoadingMessage();
-            console.error(e);
-          });
+  function loadList() {
+    showLoadingMessage();
+    return fetch(apiUrl)
+      .then(function (response) {
+        hideLoadingMessage();
+        return response.json();
+      })
+      .then(function (json) {
+        json.results.forEach(function (item) {
+          let pokemon = {
+            name: item.name.charAt(0).toUpperCase() + item.name.slice(1), // Capitalize the first letter
+            detailsUrl: item.url,
+          };
+          add(pokemon);
+        });
+      })
+      .catch(function (e) {
+        hideLoadingMessage();
+        console.error(e);
       });
-    })
-    .then(function () {
-      hideLoadingMessage();
-    })
-    .catch(function (e) {
-      hideLoadingMessage();
-      console.error(e);
-    });
-}
+  }
 
   // Function to show details of a Pokémon
   function showDetails(pokemon) {
@@ -161,63 +140,6 @@ function loadList() {
     });
   }
 
-  // Function to set up the filter functionality
-function setupFilter() {
-  let selectedTypes = []; // Store the selected types
-  let typeDropdown = document.getElementById("typeDropdown");
-
-  if (typeDropdown) {
-    typeDropdown.addEventListener("change", function () {
-      // Get the selected type from the dropdown
-      let selectedType = typeDropdown.value;
-
-      if (selectedTypes.includes(selectedType)) {
-        // Type is already selected, remove it
-        selectedTypes = selectedTypes.filter((type) => type !== selectedType);
-      } else {
-        // Type is not selected, add it
-        selectedTypes.push(selectedType);
-      }
-
-      updateFilter(selectedTypes); // Pass the array of selected types
-      updateSelectedTypesDisplay(selectedTypes); // Update the selected types display
-    });
-  } else {
-    console.error("No element found with the 'typeDropdown' id.");
-  }
-}
-
-  // Function to update the filter
-  function updateFilter(selectedTypes, types) {
-    types.forEach(function (pokemonItem) {
-      let itemTypes = pokemonItem.getAttribute("data-type");
-      console.log(itemTypes);
-      let shouldDisplay =
-        selectedTypes.length === 0 ||
-        selectedTypes.every((type) => itemTypes.includes(type));
-
-      if (shouldDisplay) {
-        pokemonItem.style.display = "block";
-      } else {
-        pokemonItem.style.display = "none";
-      }
-    });
-  }
-
-  //Function to display currently selected types (can be up to two)
-  function updateSelectedTypesDisplay(selectedTypes) {
-    let typeDropdownButton = document.querySelector("#typeDropdown");
-    let selectedTypesDisplay = document.querySelector("#selectedTypesDisplay");
-
-    if (selectedTypes.length === 0) {
-      typeDropdownButton.innerText = "Select Type";
-      selectedTypesDisplay.innerText = "";
-    } else {
-      typeDropdownButton.innerText = "Types Selected";
-      selectedTypesDisplay.innerText = selectedTypes.join(", ");
-    }
-  }
-
   return {
     add: add,
     getAll: getAll,
@@ -228,14 +150,10 @@ function setupFilter() {
     showLoadingMessage: showLoadingMessage,
     hideLoadingMessage: hideLoadingMessage,
     setupSearch: setupSearch,
-    setupFilter: setupFilter,
-    updateFilter: updateFilter,
   };
 })();
 
 pokemonRepository.loadList().then(() => {
   pokemonRepository.getAll().forEach(pokemonRepository.addListItem);
   pokemonRepository.setupSearch();
-  pokemonRepository.setupFilter();
-  pokemonRepository.updateFilter("");
 });
