@@ -11,7 +11,7 @@ external API.
 Always and immediately. The code for this pokedex app can always be viewed in a repository.
 
 ## Where
-The app can be viewed directly from my GitHub repository or be directed to my GitHub profile via my portfolio website or here too: https://henryn05.github.io/pokedex/
+Anyone can be directed to this app via my portfolio website or be viewed directly from my GitHub repository to https://henryn05.github.io/pokedex/
 
 ## Why
 I made this app to develop and showcase my ability to create a small JavaScript application using an external API and the Bootstrap framework.
