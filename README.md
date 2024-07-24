@@ -12,7 +12,3 @@ By clicking on the name of the Pokemon, users are able to view the height and ty
 
 ## Where Can I Visit This Site?
 This website can be viewed through this [link](https://henryn05.github.io/pokedex/).
-
-
-
-
