@@ -119,17 +119,17 @@ body::before {
     top: 100%;
     right: 0;
     z-index: 1000;
-    display: none; 
+    display: none;
     transition: all 0.3s ease;
   }
-  
+
   .navbar-toggler {
     position: relative;
   }
 
   .navbar-toggler:focus + .navbar-collapse,
   .navbar-collapse:hover {
-    display: block; 
+    display: block;
   }
 
   .navbar-nav .form-inline {
