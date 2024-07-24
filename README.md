@@ -1,21 +1,12 @@
-# Pokedex Project
-
-## Who
-This project is created for my potential employers and professional network.
-
-## What
+## How Was This App Made?
 A JavaScript app built with HTML, CSS, and JavaScript, which uses an
 external API.
 
-## When
-Always and immediately. The code for this pokedex app can always be viewed in a repository.
-
-## Where
-Anyone can be directed to this app via my portfolio website or be viewed directly from my GitHub repository to https://henryn05.github.io/pokedex/
-
-## Why
-I made this app to develop and showcase my ability to create a small JavaScript application using an external API and the Bootstrap framework.
-
-
 ### Acknowledgement
 I want to thank my tutor and mentor Rylan Albach and Enrique Gonzalez for being two helpful and encouraging teachers at CareerFoundry :D
+=======
+## What Does This App Do?
+It displays all original 150 pokemon through the Pokemon API and allows users to view more about the pokemon by clicking on its name.
+
+## Where Can I Visit This Site?
+This website can be viewed through this [link](https://henryn05.github.io/pokedex/).
